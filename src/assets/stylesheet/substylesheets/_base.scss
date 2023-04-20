@@ -1,0 +1,20 @@
+:root {
+    ---white: #FFFFFF;
+    ---violet-lightest: #ECEBFF;
+    ---violet-lighter: #D8D6FE;
+    ---violet-light: #635BFB;
+    ---violet-dark: #2A23AF;
+    ---violet-darker: #181464;
+}
+
+$white: var(---white);
+$violet-lightest: var(---violet-lightest);
+$violet-lighter: var(---violet-lighter);
+$violet-light: var(---violet-light);
+$violet-dark: var(---violet-dark);
+$violet-darker: var(---violet-darker);
+
+body {
+    background-color: $violet-lightest;
+    position: relative;
+}

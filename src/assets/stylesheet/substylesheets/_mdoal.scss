@@ -1,0 +1,81 @@
+.modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(6, 5, 25, 0.6);
+    backdrop-filter: blur(10px);
+
+    &__close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 2.4rem;
+        padding: 4rem;
+        cursor: pointer;
+        color: $violet-darker;
+    }
+
+    &__card {
+        background-color: $white;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 8rem;
+        width: 60%;
+        border-radius: 2rem;
+        padding: 4rem;
+    }
+
+    &__text-inputs {
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            width: fit-content;
+        }
+    
+        p {
+            font-size: 2rem;
+            margin-bottom: 6rem;
+            line-height: 3.2rem;
+        }
+
+        &--new {
+            color: $violet-light;
+            opacity: 0.8;
+        }
+    }
+
+    &__label-list {
+        .label {
+            display: inline-block;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        padding-top: 6rem;
+
+        .btn {
+            margin-left: auto;
+        }
+
+        .action {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: $violet-darker;
+            cursor: pointer;
+        }
+
+        &--confirmation {
+            padding-top: 4rem;
+        }
+    }
+
+    &__text {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+}

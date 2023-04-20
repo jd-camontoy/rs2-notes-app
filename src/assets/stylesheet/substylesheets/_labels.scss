@@ -1,0 +1,51 @@
+.label {
+    padding: 6px 1.6rem;
+    border-radius: 5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: fit-content;
+
+    &__filter {
+        padding: 1rem 2em;
+    }
+
+    &--unselected {
+        background-color: transparent;
+        border: 2px solid $violet-dark;
+        color: $violet-dark;
+    }
+
+    &--selected, &--default {
+        background-color: $violet-dark;
+        color: $white;
+    }
+
+    &--default {
+        font-size: 1.4rem !important;
+        font-weight: 700 !important;
+    }
+
+    &--new {
+        background-color: transparent;
+        border: 2px solid $violet-light;
+        color: $violet-light;
+    }
+
+    &__input {
+        font-size: 1.6rem;
+        font-weight: 500;
+        border: 2px solid $violet-light;
+        padding: 8px 1.6rem;
+        border-radius: 1rem;
+
+        &:focus {
+            outline: none;
+        }
+
+        &::placeholder {
+            color: $violet-light;
+            opacity: 0.8;
+        }
+    }
+}
