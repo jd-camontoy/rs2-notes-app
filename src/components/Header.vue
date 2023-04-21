@@ -3,6 +3,12 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
+const emit = defineEmits(['searchEvent'])
+
+const emitSearchEvent = (event) => {
+    emit('searchEvent', event.target.value)
+}
+
 function handleLogout() {
   localStorage.removeItem("user");
   router.push("/login");
@@ -19,6 +25,7 @@ function handleLogout() {
       />
     </div>
     <input
+      @input="emitSearchEvent"
       type="text"
       class="header__search-notes-field"
       placeholder="Search notes here"

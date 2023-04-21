@@ -13,7 +13,9 @@ const isEditNoteModalOpen = ref(false);
 const noteForEdit = ref({});
 
 const userNotes = ref([]);
+const displayedNotes = ref([]);
 const userLabels = ref([]);
+const toggledLabels = ref([]);
 
 const closeCreateModal = () => {
   isCreateNoteModalOpen.value = false;
@@ -41,14 +43,49 @@ function closeModalAndReloadData(modalType) {
   loadData();
 }
 
+function filterDisplayedNotes(searchString) {
+    let newDisplayedNotes = userNotes.value.filter(note => {
+        let combinedTitleAndContent = note.title + ' ' + note.content;
+        combinedTitleAndContent = combinedTitleAndContent.toLocaleLowerCase();
+        if (combinedTitleAndContent.includes(searchString.toLowerCase())) {
+            return note;
+        }
+    });
+    displayedNotes.value = newDisplayedNotes;
+}
+
+function toggleLabelFilter(toggledLabel) {
+    const toggledFilterList = toggledLabels.value;
+    let newFilterList;
+    if (toggledFilterList.includes(toggledLabel)) {
+        newFilterList = toggledLabels.value.filter(label => label != toggledLabel);
+    } else {
+        newFilterList = [...toggledLabels.value, toggledLabel]
+    }
+    toggledLabels.value = newFilterList;
+
+    let newDisplayedNotes = userNotes.value.filter(note => {
+        let currentNoteLabels = note.labels.join(' ');
+        let toggleLabelList = toggledLabels.value.join(' ');
+        if (currentNoteLabels.includes(toggleLabelList)) {
+            return note;
+        }
+    });
+    displayedNotes.value = newDisplayedNotes;
+}
+
+function isLabelToggled(label) {
+    return toggledLabels.value.includes(label);
+}
+
 async function loadData() {
   let sessionData = localStorage.getItem("user");
   let loggedInUser = JSON.parse(sessionData);
   const result = await getNoteList(loggedInUser.id);
-  //   userNotes.value = result.data.sort((a, b) => { return a.created_at - b.created_at; });
   if (result.success) {
     const resultData = result.data;
     userNotes.value = resultData.notes;
+    displayedNotes.value = resultData.notes;
     userLabels.value = resultData.all_labels;
   } else {
     console.error(result);
@@ -61,7 +98,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Header />
+  <Header @searchEvent="filterDisplayedNotes" />
   <section class="section--main">
     <aside class="aside__label-filter">
       Labels Quick Access
@@ -69,7 +106,9 @@ onMounted(() => {
         <span
           v-for="label in userLabels"
           :key="label"
-          class="label label__filter label--unselected"
+          @click="toggleLabelFilter(label)"
+          class="label label__filter"
+          :class="[ isLabelToggled(label) ? 'label--selected' : 'label--unselected' ]"
           >{{ label }}</span
         >
       </div>
@@ -86,10 +125,10 @@ onMounted(() => {
         </span>
       </div>
       <div
-        v-for="note in userNotes"
+        v-for="note in displayedNotes"
         :key="note.id"
         @click="handleEditNote(note)"
-        class="note"
+        class="note note--item"
       >
         <h1>{{ note.title }}</h1>
         <p>{{ note.content }}</p>
