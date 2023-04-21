@@ -8,9 +8,9 @@ interface UserParams {
 
 interface NoteParams {
     title: string,
-    content: number,
-    labels: Array<string>,
-    userId: string
+    content: string,
+    label_list: Array,
+    user_id: string
 }
 
 const baseURL = 'http://localhost:5055/api';
