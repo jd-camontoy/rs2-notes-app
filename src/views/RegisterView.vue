@@ -19,7 +19,7 @@ async function handleRegistration() {
     localStorage.setItem('user', JSON.stringify(result.data));
     router.push('/');
   } else {
-    console.log(result);
+    console.error(result);
   }
 }
 </script>

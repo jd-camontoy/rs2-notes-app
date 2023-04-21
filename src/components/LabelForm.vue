@@ -39,7 +39,7 @@ function emitLabelAddition() {
         <i class="fa-solid fa-plus margin-right-5"></i>
         Add a new label
     </span>
-    <span v-for="label in labels" :key="label" @click="emitLabelDeletion(label)" class="label label--default">
+    <span v-for="label in labels" :key="label" @click="emitLabelDeletion(label)" class="label label--default margin-right-3">
       {{ label }}
       <i class="fa-solid fa-xmark margin-left-5"></i>
     </span>

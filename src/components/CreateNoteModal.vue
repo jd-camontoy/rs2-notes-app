@@ -45,7 +45,7 @@ async function handleSubmitNote() {
     if (result.success) {
         emit('noteCreated');
     } else {
-        console.log(result);
+        console.error(result);
     }
 }
 </script>

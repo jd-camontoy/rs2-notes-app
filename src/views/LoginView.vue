@@ -19,7 +19,7 @@ async function handleLogin() {
     localStorage.setItem('user', JSON.stringify(result.data));
     router.push('/');
   } else {
-    console.log(result);
+    console.error(result);
   }
 }
 </script>
@@ -47,7 +47,7 @@ async function handleLogin() {
         <i class="fa-solid fa-arrow-right-to-bracket margin-right-10"></i>
         Login to Notes
       </button>
-      <a href="#">Register to Notes</a>
+      <router-link to="/register">Register to Notes</router-link>
     </div>
   </main>
 </template>

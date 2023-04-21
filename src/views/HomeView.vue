@@ -5,8 +5,8 @@ import CreateNoteModal from "../components/CreateNoteModal.vue";
 import EditNoteModal from "../components/EditNoteModal.vue";
 import { getNoteList } from "../api/requests";
 
-const MODAL_TYPE_CREATE = 'create';
-const MODAL_TYPE_EDIT = 'edit';
+const MODAL_TYPE_CREATE = "create";
+const MODAL_TYPE_EDIT = "edit";
 
 const isCreateNoteModalOpen = ref(false);
 const isEditNoteModalOpen = ref(false);
@@ -33,12 +33,12 @@ function handleEditNote(noteItem) {
 }
 
 function closeModalAndReloadData(modalType) {
-    if (modalType == MODAL_TYPE_CREATE) {
-        isCreateNoteModalOpen.value = false;
-    } else if (modalType == MODAL_TYPE_EDIT) {
-        isEditNoteModalOpen.value = false;
-    }
-    loadData();
+  if (modalType == MODAL_TYPE_CREATE) {
+    isCreateNoteModalOpen.value = false;
+  } else if (modalType == MODAL_TYPE_EDIT) {
+    isEditNoteModalOpen.value = false;
+  }
+  loadData();
 }
 
 async function loadData() {
@@ -51,7 +51,7 @@ async function loadData() {
     userNotes.value = resultData.notes;
     userLabels.value = resultData.all_labels;
   } else {
-    console.log(result);
+    console.error(result);
   }
 }
 
@@ -65,13 +65,17 @@ onMounted(() => {
   <section class="section--main">
     <aside class="aside__label-filter">
       Labels Quick Access
-      <div class="aside__label-list">
+      <div v-if="userLabels.length" class="aside__label-list">
         <span
           v-for="label in userLabels"
           :key="label"
           class="label label__filter label--unselected"
           >{{ label }}</span
         >
+      </div>
+      <div v-if="!userLabels.length" class="aside__no-labels">
+        <i class="fa-regular fa-face-sad-cry"></i>
+        No labels yet
       </div>
     </aside>
     <section class="section--notes">
@@ -110,5 +114,6 @@ onMounted(() => {
     :noteItem="noteForEdit"
     :closeEditModalFn="closeEditModal"
     @noteUpdated="closeModalAndReloadData(MODAL_TYPE_EDIT)"
+    @noteDeleted="closeModalAndReloadData(MODAL_TYPE_EDIT)"
   />
 </template>

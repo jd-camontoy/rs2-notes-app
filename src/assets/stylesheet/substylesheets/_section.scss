@@ -21,6 +21,20 @@
                     }
                 }
             }
+
+            &__no-labels {
+                opacity: 0.4;
+                font-size: 2rem;
+                display: flex;
+                flex-direction: column;
+                padding: 4rem 0;
+
+                i {
+                    font-size: 4rem;
+                    opacity: 0.2;
+                    margin-bottom: 2rem;
+                }
+            }
         }
     }
 

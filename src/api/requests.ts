@@ -73,6 +73,25 @@ const sendToPUT = async (url, parameters) => {
     }
 }
 
+const sendToDELETE = async (url, parameters) => {
+    let options = {
+        data: {
+            params: JSON.stringify(parameters)
+        }
+    };
+    let result = await api.delete(url, options).catch((error) => {
+        return error;
+    });
+    if (!(result instanceof AxiosError)) {
+        return {
+            ...result.data,
+            status_code: result.status
+        }
+    } else {
+        return result;
+    }
+}
+
 export const loginUser = async (params: UserParams) => {
     let result = await sendToPOST(urlLoginEndpoint, params);
     return result;
@@ -95,5 +114,10 @@ export const getNoteList = async (user_id) => {
 
 export const updateNote = async (params: UpdateNoteParams) => {
     let result = await sendToPUT(urlNoteEndpoint, params);
+    return result;
+};
+
+export const deleteNote = async (note_id) => {
+    let result = await sendToDELETE(urlNoteEndpoint, { note_id });
     return result;
 };
