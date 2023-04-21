@@ -4,7 +4,7 @@ import { ref, computed, defineEmits } from 'vue';
 import { addNote } from '../api/requests';
 
 const props = defineProps({
-    closeModalFn: {
+    closeCreateModalFn: {
         required: true
     }
 });
@@ -51,9 +51,9 @@ async function handleSubmitNote() {
 </script>
 
 <template>
-  <div class="modal">
+  <div class="modal" @click.self="closeCreateModalFn">
     <div class="modal__card">
-      <span @click="closeModalFn" class="modal__close">
+      <span @click="closeCreateModalFn" class="modal__close">
         <i class="fa-solid fa-xmark"></i>
       </span>
       <div class="modal__text-inputs modal__text-inputs--new">

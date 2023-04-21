@@ -13,11 +13,20 @@ interface NoteParams {
     user_id: string
 }
 
+interface UpdateNoteParams {
+    new_title?: string,
+    new_content?: string,
+    added_labels?: Array,
+    removed_labels?: Array,
+    note_id: string
+}
+
 const baseURL = 'http://localhost:5055/api';
 
 const urlLoginEndpoint = '/login';
 const urlRegisterEndpoint = '/user';
 const urlNoteEndpoint = '/note';
+const urlNoteListEndpoint = '/notes';
 
 const api = axios.create({
     baseURL,
@@ -46,6 +55,24 @@ const sendToPOST = async (url, parameters) => {
     }
 }
 
+const sendToPUT = async (url, parameters) => {
+    let data = {
+        params: JSON.stringify(parameters)
+    };
+    let result = 
+        await api.put(url, data).catch((error) => {
+            return error;
+        });
+    if (!(result instanceof AxiosError)) {
+        return {
+            ...result.data,
+            status_code: result.status
+        }
+    } else {
+        return result;
+    }
+}
+
 export const loginUser = async (params: UserParams) => {
     let result = await sendToPOST(urlLoginEndpoint, params);
     return result;
@@ -58,5 +85,15 @@ export const registerUser = async (params: UserParams) => {
 
 export const addNote = async (params: NoteParams) => {
     let result = await sendToPOST(urlNoteEndpoint, params);
+    return result;
+};
+
+export const getNoteList = async (user_id) => {
+    let result = await sendToPOST(urlNoteListEndpoint, { user_id });
+    return result;
+};
+
+export const updateNote = async (params: UpdateNoteParams) => {
+    let result = await sendToPUT(urlNoteEndpoint, params);
     return result;
 };

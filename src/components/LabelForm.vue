@@ -46,6 +46,7 @@ function emitLabelAddition() {
   </div>
   <div v-if="isAddingLabel" class="modal__label-list margin-top-20">
     <input
+    @keypress.enter="emitLabelAddition"
       v-model="newLabel"
       type="text"
       class="label__input"
