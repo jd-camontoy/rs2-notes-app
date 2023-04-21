@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { loginUser } from '../api/requests';
+import { registerUser } from '../api/requests';
 
 const name = ref("");
 const surname = ref("");
@@ -9,8 +9,8 @@ const password = ref("");
 
 const router = useRouter()
 
-async function handleLogin() {
-  const result = await loginUser({
+async function handleRegistration() {
+  const result = await registerUser({
     first_name: name.value,
     surname: surname.value,
     password: password.value
@@ -34,20 +34,26 @@ async function handleLogin() {
       />
       <div class="login__inputs">
         <div class="login__inputs--name margin-bottom-10">
-          <input v-model="name" type="text" placeholder="First Name" class="margin-right-10" />
+          <input
+            v-model="name"
+            type="text"
+            placeholder="First Name"
+            class="margin-right-10"
+          />
           <input v-model="surname" type="text" placeholder="Surname" />
         </div>
-        <input v-model="password"
-          class="login__input--password"
+        <input
+          v-model="password"
+          class="login__input"
           type="password"
           placeholder="Password"
         />
       </div>
-      <button @click="handleLogin" class="btn btn--primary">
-        <i class="fa-solid fa-arrow-right-to-bracket margin-right-10"></i>
-        Login to Notes
+      <button @click="handleRegistration" class="btn btn--primary">
+        <i class="fa-regular fa-user margin-right-10"></i>
+        Register to Notes
       </button>
-      <a href="#">Register to Notes</a>
+      <router-link to="/login">Go to Login</router-link>
     </div>
   </main>
 </template>
