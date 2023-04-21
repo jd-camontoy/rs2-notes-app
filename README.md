@@ -1,6 +1,12 @@
-# rs2-notes-app
+# RS2 Note App
 
-This template should help get you started developing with Vue 3 in Vite.
+A note-taking application that allows users to create, udpate, and delete notes. Users can also tag their notes with labels. Finally, users can easily find and sort their notes with the provided seach and label filter functionalities.
+
+![RS2 Note App Screenshot](rs2-note-app-ss.jpeg)
+
+## Back-end API Connection
+
+To enable the functionality of the web application, the corresponding API service must be available for the application to send requests to. See the [following link](https://github.com/jd-camontoy/rs2-notes-api) to the repository for details on setup
 
 ## Recommended IDE Setup
 
@@ -37,16 +43,4 @@ npm run dev
 
 ```sh
 npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
