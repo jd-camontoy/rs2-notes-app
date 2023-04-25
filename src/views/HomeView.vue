@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import Header from "../components/Header.vue";
 import CreateNoteModal from "../components/CreateNoteModal.vue";
 import EditNoteModal from "../components/EditNoteModal.vue";
@@ -16,6 +16,10 @@ const userNotes = ref([]);
 const displayedNotes = ref([]);
 const userLabels = ref([]);
 const toggledLabels = ref([]);
+
+const hasNotes = computed(() => {
+  return userNotes.value.length > 0;
+})
 
 const closeCreateModal = () => {
   isCreateNoteModalOpen.value = false;
@@ -44,6 +48,7 @@ function closeModalAndReloadData(modalType) {
 }
 
 function filterDisplayedNotes(searchString) {
+  if (hasNotes.value) {
     let newDisplayedNotes = userNotes.value.filter(note => {
         let combinedTitleAndContent = note.title + ' ' + note.content;
         combinedTitleAndContent = combinedTitleAndContent.toLocaleLowerCase();
@@ -52,6 +57,7 @@ function filterDisplayedNotes(searchString) {
         }
     });
     displayedNotes.value = newDisplayedNotes;
+  }
 }
 
 function toggleLabelFilter(toggledLabel) {

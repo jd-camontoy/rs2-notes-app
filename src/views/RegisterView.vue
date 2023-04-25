@@ -7,7 +7,25 @@ const name = ref("");
 const surname = ref("");
 const password = ref("");
 
-const router = useRouter()
+const errorMessage = ref("");
+
+const router = useRouter();
+
+const hasErrorMessage = computed(() => {
+  return (errorMessage.value != '');
+});
+
+function validateRegistrationForm() {
+  if (name.value == '' || surname.value == '' || password.value == '') {
+    errorMessage.value = 'Please fill up the required fields';
+    const errorDisplayTimeout = setTimeout(() => {
+      errorMessage.value = '';
+      clearTimeout(errorDisplayTimeout);
+    }, 3000)
+  } else {
+    handleRegistration();
+  }
+}
 
 async function handleRegistration() {
   const result = await registerUser({
@@ -32,6 +50,9 @@ async function handleRegistration() {
         alt="RS2 Notes App Logo"
         class="header__logo"
       />
+      <div v-if="hasErrorMessage" class="error margin-bottom-30">
+        {{ errorMessage }}
+      </div>
       <div class="login__inputs">
         <div class="login__inputs--name margin-bottom-10">
           <input
@@ -49,7 +70,7 @@ async function handleRegistration() {
           placeholder="Password"
         />
       </div>
-      <button @click="handleRegistration" class="btn btn--primary">
+      <button @click="validateRegistrationForm" class="btn btn--primary">
         <i class="fa-regular fa-user margin-right-10"></i>
         Register to Notes
       </button>

@@ -1,0 +1,12 @@
+$error-fg: #540d29;
+$error-bg: #eda6c2;
+
+.error {
+    border: 1px solid $error-fg;
+    padding: 1.6rem 2rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-radius: 1rem;
+    background-color: $error-bg;
+    color: $error-fg;
+}
